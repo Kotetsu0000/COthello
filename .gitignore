@@ -4,4 +4,4 @@
 build/
 dist/
 error.txt
-.venv/
+.venv/*
