@@ -6,8 +6,9 @@ __version__ = "0.0.1"
 ext_modules = [
     Pybind11Extension(
         "COthello",
-        ["src/COthello.cpp", "src/Perft.cpp"],
+        ["src/COthello.cpp", "src/Perft.cpp", "src/simd.cpp"],
         include_dirs=["include"],
+        extra_compile_args=['-std=c++17', '-O3', '-march=native'], # 修正: `-fvectorize` を削除
     ),
 ]
 

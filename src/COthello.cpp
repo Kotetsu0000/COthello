@@ -195,4 +195,5 @@ PYBIND11_MODULE(COthello, m) {
 
     m.def("perft", &COthello::perft, "Perft function");
     m.def("perft_no_pass_count", &COthello::perft_no_pass_count, "Perft function mode 2");
+    m.def("calc_legal_simd", &COthello::calc_legal_simd, "Calculate legal moves with SIMD");
 }
