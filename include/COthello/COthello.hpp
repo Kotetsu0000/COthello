@@ -1,3 +1,5 @@
 #pragma once
 
-int add(int i, int j);
+#include "COthello/Board.hpp"
+#include "COthello/Flip.hpp"
+#include "COthello/Perft.hpp"

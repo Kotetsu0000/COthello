@@ -184,4 +184,7 @@ PYBIND11_MODULE(COthello, m) {
         .def(py::init<>())
         .def_readwrite("pos", &COthello::Flip::pos)
         .def_readwrite("flip", &COthello::Flip::flip);
+
+    m.def("perft", &COthello::perft, "Perft function");
+    m.def("perft_no_pass_count", &COthello::perft_no_pass_count, "Perft function mode 2");
 }
