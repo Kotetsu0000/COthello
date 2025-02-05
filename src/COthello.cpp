@@ -2,6 +2,7 @@
 #include "COthello/COthello.hpp"
 #include "COthello/Board.hpp"
 #include "COthello/Flip.hpp"
+#include "COthello/simd.hpp"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -94,6 +95,8 @@ void COthello::Board::print() const {
     std::cout << std::endl;
 }
 
+namespace COthello {
+
 // 実装: 現在のボードとプレイヤーに基づいた合法手を計算
 uint64_t calc_legal(const COthello::Board &board) {
     uint64_t moves, mO;
@@ -156,6 +159,8 @@ COthello::Flip calc_flip(const COthello::Board &board, const int pos) {
     return flip;
 }
 
+}
+
 // Boardクラスのメソッドとして実装
 uint64_t COthello::Board::get_legal() const {
     return ::calc_legal(*this);
@@ -196,4 +201,6 @@ PYBIND11_MODULE(COthello, m) {
     m.def("perft", &COthello::perft, "Perft function");
     m.def("perft_no_pass_count", &COthello::perft_no_pass_count, "Perft function mode 2");
     m.def("calc_legal_simd", &COthello::calc_legal_simd, "Calculate legal moves with SIMD");
+    m.def("calc_flip_simd", &COthello::calc_flip_simd, "Calculate flipped discs with SIMD");
+    m.def("count_player_simd", &COthello::count_player_simd, "Count player's discs with SIMD");
 }
