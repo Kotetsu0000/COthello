@@ -21,17 +21,17 @@ void COthello::Board::reset() {
 }
 
 void COthello::Board::move_board(const COthello::Flip& flip) {
-    player ^= (1ULL << flip.pos); // 置いた場所、flipの場所をplayerとopponentでやり取り
-    player ^= flip.flip;
-    opponent ^= flip.flip;
-    std::swap(player, opponent); // ターンを入れ替える
+    player ^= (1ULL << flip.pos); // 石を置く
+    player ^= flip.flip;          // ひっくり返す
+    opponent ^= flip.flip;        // ひっくり返された石を取り除く
+    std::swap(player, opponent);  // 手番の交代
 }
 
 void COthello::Board::undo_board(const COthello::Flip& flip) {
-    std::swap(player, opponent);
-    opponent ^= (1ULL << flip.pos);
-    player ^= flip.flip;
-    opponent ^= flip.flip;
+    std::swap(player, opponent); // 手番を戻す
+    opponent ^= (1ULL << flip.pos); // 石を取り除く
+    player ^= flip.flip;          // ひっくり返した石を元に戻す
+    opponent ^= flip.flip;        // ひっくり返した石を元に戻す
 }
 
 void COthello::Board::pass_turn() {
