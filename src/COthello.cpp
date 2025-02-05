@@ -21,10 +21,17 @@ void COthello::Board::reset() {
 }
 
 void COthello::Board::move_board(const COthello::Flip& flip) {
-    player ^= (1ULL << flip.pos);
+    player ^= (1ULL << flip.pos); // 置いた場所、flipの場所をplayerとopponentでやり取り
     player ^= flip.flip;
     opponent ^= flip.flip;
+    std::swap(player, opponent); // ターンを入れ替える
+}
+
+void COthello::Board::undo_board(const COthello::Flip& flip) {
     std::swap(player, opponent);
+    opponent ^= (1ULL << flip.pos);
+    player ^= flip.flip;
+    opponent ^= flip.flip;
 }
 
 void COthello::Board::pass_turn() {
@@ -177,7 +184,8 @@ PYBIND11_MODULE(COthello, m) {
         .def("to_str", &COthello::Board::to_str)
         .def("print", &COthello::Board::print)
         .def("get_legal", &COthello::Board::get_legal)
-        .def("calc_flip", &COthello::Board::calc_flip);
+        .def("calc_flip", &COthello::Board::calc_flip)
+        .def("undo_board", &COthello::Board::undo_board);
 
     // Flip構造体をバインド
     py::class_<COthello::Flip>(m, "Flip")

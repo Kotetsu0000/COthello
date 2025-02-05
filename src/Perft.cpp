@@ -21,7 +21,14 @@ namespace COthello { // COthello 名前空間で囲む
             return __builtin_popcountll(legal); // speedup with bulk-counting
         }
         
-        // 未実装
+        Flip flip;
+        for (uint_fast8_t cell = 0; cell < 64; ++cell) {
+            if (!((legal >> cell) & 1)) continue;
+            flip = board->calc_flip(cell);
+            board->move_board(flip);
+            res += perft(board, depth - 1, false);
+            board->undo_board(flip);
+        }
         return res;
     }
 
@@ -43,7 +50,15 @@ namespace COthello { // COthello 名前空間で囲む
         if (depth == 1) {
             return __builtin_popcountll(legal); // speedup with bulk-counting
         }
-        // 未実装
+
+        Flip flip;
+        for (uint_fast8_t cell = 0; cell < 64; ++cell) {
+            if (!((legal >> cell) & 1)) continue;
+            flip = board->calc_flip(cell);
+            board->move_board(flip);
+            res += perft_no_pass_count(board, depth - 1, false);
+            board->undo_board(flip);
+        }
         return res;
     }
 

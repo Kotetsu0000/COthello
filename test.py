@@ -3,8 +3,7 @@ import COthello
 board = COthello.Board()
 board.reset()
 
-# 浅い深さでテスト
-print(COthello.perft(board, 0, False))
-print(COthello.perft(board, 1, False))
-print(COthello.perft_no_pass_count(board, 0, False))
-print(COthello.perft_no_pass_count(board, 1, False))
+# 浅い深さでテスト (例えば深さ 1-6 程度)
+for depth in range(7):
+    print(f"Perft({depth}) = {COthello.perft(board, depth, False)}")
+    print(f"Perft_no_pass_count({depth}) = {COthello.perft_no_pass_count(board, depth, False)}")

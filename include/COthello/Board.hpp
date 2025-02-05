@@ -22,6 +22,7 @@ public:
     Board copy() const;
     std::string to_str() const;
     void print() const;
+    void undo_board(const Flip& flip); // 追加
 
     uint64_t get_legal() const;
     Flip calc_flip(uint_fast8_t pos) const;
