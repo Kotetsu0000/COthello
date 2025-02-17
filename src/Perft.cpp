@@ -1,3 +1,6 @@
+#pragma once
+#include <omp.h>
+
 #include "COthello/Perft.hpp"
 
 namespace COthello { // COthello 名前空間で囲む
@@ -21,14 +24,15 @@ namespace COthello { // COthello 名前空間で囲む
             return __builtin_popcountll(legal); // speedup with bulk-counting
         }
         
-        Flip flip;
-        for (uint_fast8_t cell = 0; cell < 64; ++cell) {
-            if (!((legal >> cell) & 1)) continue;
-            Board next_board = board->copy();
-            flip = next_board.calc_flip(cell);
-            next_board.move_board(flip);
-            res += perft(&next_board, depth - 1, false);
-        }
+            Flip flip;
+            for (uint_fast8_t cell = 0; cell < 64; ++cell) {
+                if (!((legal >> cell) & 1)) continue;
+                Board next_board = board->copy();
+                flip = next_board.calc_flip(cell);
+                next_board.move_board(flip);
+                res += perft(&next_board, depth - 1, false);
+            }
+        
         return res;
     }
 
@@ -48,14 +52,15 @@ namespace COthello { // COthello 名前空間で囲む
             return res;
         }
         
-        Flip flip;
-        for (uint_fast8_t cell = 0; cell < 64; ++cell) {
-            if (!((legal >> cell) & 1)) continue;
-            Board next_board = board->copy();
-            flip = next_board.calc_flip(cell);
-            next_board.move_board(flip);
-            res += perft_no_pass_count(&next_board, depth - 1, false); // パスが発生しなかった次の手番は、深さを1つ減らす
-        }
+            Flip flip;
+            for (uint_fast8_t cell = 0; cell < 64; ++cell) {
+                if (!((legal >> cell) & 1)) continue;
+                Board next_board = board->copy();
+                flip = next_board.calc_flip(cell);
+                next_board.move_board(flip);
+                res += perft_no_pass_count(&next_board, depth - 1, false); // パスが発生しなかった次の手番は、深さを1つ減らす
+            }
+        
         return res;
     }
 

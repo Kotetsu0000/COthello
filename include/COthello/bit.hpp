@@ -1,3 +1,3 @@
 #pragma once
 #include "setting.hpp"
-#include "Flip_generic.hpp"
+#include "bit_generic.hpp"
